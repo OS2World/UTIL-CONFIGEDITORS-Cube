@@ -1,0 +1,131 @@
+** test cube commands
+
+al "test drive mapping"
+al "map c:\os2\boot"
+al "map d:\cube\bin"
+
+al "test if/ifnot"
+al "if true" (if "test if/ifnot"
+al "ifnot true" (ifnot "testing if/ifnot"
+al "bad if false" (if "testing if/ifnot"
+al "bad ifno false" (ifnot "test if/ifnot"
+
+al "test env/key"
+al "env name=%name%" ( env
+al $key name="#name#"$ (key
+al %env name=!name!% ( env  @!@ always
+al 'key name="$name$"' (key "$" always
+onerror continue
+al "bad env bogus=%bogus%" ( env
+al $bad key bogus="#bogus#"$ (key
+onerror stop
+
+al "test as"
+al "as1=10;20;30;"
+as "5;" in "as1=" (before
+as "15;" in "as1=" (before "20;"
+as "35;" in "as1=" (after
+as "25;" in "as1=" (after "20;"
+al "as2=10;20;30"
+as "35;" in "as2=" (after
+al "as3=10,20,30"
+as "35," in "as3=" (after "35," noterm
+al "as4=10;20;30;"
+as "20;" in "as4=" (always
+
+al "test ds"
+al "ds1=10;20;30;40;50"
+ds "10;" in "ds1="
+ds "30;" in "ds1="
+ds "50;" in "ds1="
+al "ds2=10;20;30"
+ds "30;" in "ds2="
+al "ds3=10,20,30"
+ds "30," in "ds3=" (noterm
+
+al "test cl"
+al "this line contains a comment"
+cl "this line contains a comment" with "rem"
+
+al "test al before/after/only"
+al "al before/after"
+al "al before _"  (before
+al "al after _" (after
+al "al before x"  (before "al before/after"
+al "al after x" (after "al before/after"
+al "al before bogus"  (before "bogus al before/after"
+al "al after bogus" (after "bogus al before/after"
+al "al before only"  (before "al before/after" only
+al "al after only" (after "al before/after" only
+al "bad al before only bogus"  (before "bogus al before/after" only
+al "bad al after only bogus" (after "bogus al before/after" only
+
+al "test dl"
+al "bad deleteline"
+dl "bad deleteline"
+
+al "test rl"
+al "rl1=old"
+rl "rl1=" with "rl1=new"
+rl "rl2=" with "bad rl2=new"
+rl "rl3=" with "rl3=new" (addtop
+rl "rl4=" with "rl4=new" (addbottom
+
+al "test rs"
+al "rs1=start1234x67890end"
+rs "x" with "5" in "rs1="
+rs "67890" with "6789012345"
+
+al "test case"
+case sensitive
+al "Case s"
+al "case s"
+al "CASE s"
+case ignore
+al "Case i"
+al "case i"
+al "CASE i"
+
+al "test comment and lineid"
+comment begin ";"
+comment block "/*" to "*/"
+comment trail "//"
+lineid profile
+al ";    comment=old" (always
+al "//  comment=old" (always
+al "/*   comment=old*/" (always
+al "/*"
+al "     comment=old" (always
+al "*/"
+al "     comment=old" (always
+al "     comment=old//" (always
+al "     comment=old/*    */" (always
+rl "     comment=" with "comment=new" (all
+al ".........strip line"
+lineid strip "."
+rl "strip line" with "strip works"
+lineid nostrip
+al "/* to test REXX top line */" (before
+comment top "*/"
+al "a=0 /* REXX */" (before
+
+al "test copy"
+al "two copies" (copy "2"
+al "bad zero copies" (copy "0"
+al "bogus copies" 
+al "bogus copies" (copy "bogus"
+
+
+al "test when"
+when basic advance
+al "when basic"
+when advance
+al "when advance"
+when bogus
+al "bad when bogus"
+al "bad env bogus=%bogus%" ( env
+al $bad key bogus="#bogus#"$ (key
+when usb
+al "when usb"
+when *
+al "when *"

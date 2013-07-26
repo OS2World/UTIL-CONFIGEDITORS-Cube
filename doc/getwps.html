@@ -1,0 +1,222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+ <link type="text/css" href="cube.css" rel="stylesheet">
+ <style>
+ </style>
+ <title>GETWPS 1.3</title>
+</head>
+<body>
+<a href="index.html">Family members</a>
+<h1>GETWPS V1.3 </h1>
+<br>
+
+<h2>DISCLAIMER</h2>
+
+<p>I or any other contributors allow you to use and modify freely under
+the condition that I or other contributors are in no way responsible
+for any damage or loss you may suffer.</p>
+
+<h2>WHAT'S NEW</h2>
+
+
+<h2>HISTORY</h2>
+
+<table>
+ <caption>History</caption>
+ <col width="100"><col width="100"><col>
+ <tbody>
+<tr><td>15/09/03</td><td>V1.3</td><td>map datapath                      (gjarvis@ieee.org)</td></tr>
+<tr><td>19/05/03</td><td>V1.2</td><td>for shadows missing OBJECTID (gjarvis@ieee.org)</td></tr>
+<tr><td>23/03/03</td><td>V1.1</td><td>(ALL command line option<br/>
+ (WPDATA command line option<br/>
+ OBJ verb (gjarvis@ieee.org)</td></tr>
+<tr><td>17/06/02</td><td>V1.0</td><td>Initial version (gjarvis@ieee.org)</td></tr>
+ </tbody>
+</table>
+
+
+<h2>DOCUMENTATION</h2>
+
+
+<p>GETWPS is a REXX program to generate selected objects on desktop and startup
+folders. The selected objects include all descendents. The desktop object is
+also  saved. A list of desktop and startup objects is automatically generated
+in file 'getwps.lst' and controls selection.</p>
+
+<p>Most objects of vanilla install are quite Operating System
+dependent. WPS objects are handle separately by GETWPS.</p>
+
+<p>WPTOOLS.DLL is required and in your LIBPATH. Note eCS 1.0 has a few different
+versions which some older ones can create bad data. The output displays
+version info. The last one with file date Jan 27, 2000 displays version
+"2.12".</p>
+
+<p>Use repeatedly in a command window and edit 'getwps.lst' until desired result
+achieved. Usually only a few iterations are needed.</p>
+
+<pre>&gt;getwps
+&gt;epm getwps.*</pre>
+
+
+<p>The following statistics are displayed:</p>
+
+<dl>
+<dt>read</dt> <dd>number of lines read 'getwps.lst'</dd>
+<dt>new</dt> <dd>number of desktop and startup objects in your system but not in 'getwps.lst' and
+will be automatically added</dd>
+<dt>created</dt> <dd>number of created objects in 'getwps.din'</dd>
+</dl>
+
+<h2>Command Line Syntax</h2>
+
+<table>
+ <caption>Command Line Syntax</caption>
+ <col width="200"><col>
+ <tbody>
+
+<tr><td class="cmd" colspan="2">
+GETWPS [(Options]
+</td></tr>
+
+ <tr>
+ <th>Options</th>
+ <th>[ALL] [WPDATA]</th>
+ </tr>
+<tr>
+<td>ALL</td>
+<td>all objects are created in file 'getwps.all' with same format as 'getwps.din'</td>
+</tr>
+<tr>
+<td>WPDATA</td>
+<td>exclude rarely used class 'WPDataFile' which can create bad data</td>
+</tr>
+ </tbody>
+</table>
+
+
+<h2>getwps.lst</h2>
+
+<p>An ASCII file, 'getwps.lst' lists all objects on the desktop and in the
+startup folder. Each line tells whether object is selected or excluded.</p>
+
+<table>
+ <caption>getwps.lst</caption>
+ <col width="100"><col>
+ <tbody>
+
+<tr>
+<td class="verb" id="cmt">*</td>
+<td class="cmd">blank lines and lines starting with an asterik are ignored</td>
+</tr>
+<tr>
+<td class="verb" id="exc">EXC</td>
+<td class="cmd">exclude object and all its descendents</td>
+</tr>
+ <tr>
+ <th>Parameter</th>
+ <th class="cmd">EXC "class" "title" "loc"</th>
+ </tr>
+<tr>
+<td>class</td>
+<td>class</td>
+</tr>
+<tr>
+<td>title</td>
+<td>title</td>
+</tr>
+<tr>
+<td>loc</td>
+<td>location</td>
+</tr>
+
+<tr>
+<td class="verb" id="inc">INC</td>
+<td class="cmd">include object and all its descendents</td>
+</tr>
+ <tr>
+ <th>Parameter</th>
+ <th class="cmd">INC "class" "title" "loc"</th>
+ </tr>
+<tr>
+<td>class</td>
+<td>class</td>
+</tr>
+<tr>
+<td>title</td>
+<td>title</td>
+</tr>
+<tr>
+<td>loc</td>
+<td>location</td>
+</tr>
+
+<tr>
+<td class="verb" id="obj">OBJ</td>
+<td class="cmd"></td>
+</tr>
+ <tr>
+ <th>Parameter</th>
+ <th class="cmd">OBJ "id"</th>
+ </tr>
+<tr>
+<td>id</td>
+<td>object id</td>
+</tr>
+
+</tbody>
+</table>
+
+<p>If there is neither 'INC' nor 'EXC' for a object then an 'EXC' line is
+appended to bottom of file.  Just run the program and it will generate the
+'EXC'.  Edit the file by changing 'EXC' to 'INC' for objects you want. Then run
+the program again.</p>
+
+<h2>getwps.din</h2>
+
+<p>An ASCII file, 'getwps.din', is generated with following format.
+
+<table id="#din">
+ <caption>getwps.din</caption>
+ <col width="160"><col>
+ <tbody>
+ <tr>
+ <th>first line</th>
+ <th class="cmd">information on who, what and when generated data</th>
+ </tr>
+ <tr>
+ <th>rest of lines</th>
+ <th class="cmd">"class" "title" "loc" "setup"</th>
+ </tr>
+<tr>
+<td>class</td>
+<td>class</td>
+</tr>
+<tr>
+<td>title</td>
+<td>title</td>
+</tr>
+<tr>
+<td>loc</td>
+<td>location</td>
+</tr>
+<tr>
+<td>setup</td>
+<td>setup string</td>
+</tr>
+
+</tbody>
+</table>
+
+<p>All locations and setups have bootpath replaced by 'C:\'.</p>
+
+<h2>Examples:</h2>
+
+<ul>
+<li>include all third party objects that you want</li>
+<li>exclude all objects from vanilla install</li>
+<li>avoid shadows of command prompts as SWC and eCS has different title names</li>
+</ul>
+
+</body>
+</html>

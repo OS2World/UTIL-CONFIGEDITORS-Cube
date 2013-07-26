@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+ <link type="text/css" href="cube.css" rel="stylesheet">
+ <style>
+ </style>
+ <title>VBACK 1.0</title>
+</head>
+<body>
+<a href="index.html">Family members</a>
+<h1>VBACK V1.0 </h1>
+<br>
+
+<h2>DISCLAIMER</h2>
+
+<p>I or any other contributors allow you to use and modify freely under
+the condition that I or other contributors are in no way responsible
+for any damage or loss you may suffer.</p>
+
+<h2>WHAT'S NEW</h2>
+
+<h2>HISTORY</h2>
+
+<table>
+ <caption>History</caption>
+ <col width="100"><col width="100"><col>
+ <tbody>
+<tr><td>17/06/02</td><td>V1.0</td>
+<td>Initial version (gjarvis@ieee.org)</td></tr>
+ </tbody>
+</table>
+
+<h2>DOCUMENTATION</h2>
+
+
+<p>VBACK is a REXX script used to intelligently back up small files when necessary in a
+consistent manner.</p>
+
+<p>The backups are kept in a directory <code>vback</code> where file resides to avoid
+cluttering your directory. The backed file has same name including the
+extension plus a three digit extension for unambiguous naming.</p>
+
+<p>If file date or time has changed for <code>file</code> and <code>vback\file.nnn</code> where nnn is
+the last number from a previous vback call then it is backed up to next number.</p>
+
+<p>If there is no <code>vback\file.nnn</code> or no directory <code>vback</code> then is file is backed
+up to <code>vback\file.000</code>.</p>
+
+<p>Backing up <code>file</code> with {date &amp; time} to <code>vback\*.nnn</code>
+else nothing is displayed.</p>
+
+<p>An optional message can be specified to replace the phrase <code>Backing up</code>.</p>
+
+<p>In practice it is wiser to pre-vback, run update program, and then post-vback.
+Let vback decide whether actual backups are necessary.</p>
+
+
+<h2>Command Line Syntax</h2>
+
+<table>
+ <caption>Command Line Syntax</caption>
+ <col width="200"><col>
+ <tbody>
+
+<tr><td class="cmd" colspan="2">
+VBACK file [msg]<br/>
+VBACK
+</td></tr>
+
+ <tr>
+ <th>Parameter</th>
+ <th>Description</th>
+ </tr>
+
+<tr>
+<td>file</td>
+<td>name of file</td>
+</tr>
+
+<tr>
+<td>msg</td>
+<td>optional message to use</td>
+</tr>
+
+<tr>
+<td>Note:</td>
+<td><ul>
+<li>if no parameters the usage is printed</li>
+<li>calling from another REXX script requires a <code>CALL</code> prefix</li>
+</ul></td>
+</tr>
+
+ </tbody>
+</table>
+
+<h2>Examples:</h2>
+
+
+<pre>call VBACK 'config.sys'</pre>
+<p>If date has changed for file <code>config.sys</code> and <code>vback\config.sys.nnn</code> where
+nnn is the last number from a previous vback call then it is backed up to next
+number.  If there is no <code>vback\config.sys.nnn</code> then is file is backed to
+<code>vback\config.sys.000</code>.  For backups a message appears in the form:
+<code>Backing up config.sys with 11/23/02 10:52p to vback\*.005</code></p>
+
+<pre>call VBACK 'C:\ibmlan\ibmlan.ini', 'backing existing'</pre>
+<p>Similar to the above but files are <code>C:\ibmlan\ibmlan.ini</code> and
+<code>C:\ibmlan\vback\ibmlan.ini.nnn</code> and the optional message is
+<code>backing existing</code>.  For backups a message appears in the form:
+<code>backing existing C:\ibmlan\ibmlan.ini with 11/23/02 10:58p to vback\*.002</code></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

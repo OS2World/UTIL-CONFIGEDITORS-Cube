@@ -1,0 +1,37 @@
+/* master update system cube */
+'@echo off'
+
+parse value value('PATH',,'OS2ENVIRONMENT') with ":\OS2;" -1 bootPath +3
+make = value('hostname',,'OS2ENVIRONMENT')
+curdir  = directory()
+
+say "master update of system on" bootPath "on" date() time()
+
+directory(curdir'\copy')
+call vbcopy 'system' bootpath
+
+/* USB */
+keyw = ''
+address cmd "hcimonit | rxqueue"
+do while queued()>0
+    pull . . num . . usb .
+    if usb<>'' then keyw = keyw usb '$'num'$'
+end /* do */
+if keyw\='' then make = make "usb"
+
+directory(curdir'\text')
+call cube 'config.cub' bootpath'config.sys' '(vback make !'make'! key !'keyw'!'
+
+directory(curdir'\ini')
+call putini '(write'
+
+directory(curdir'\class')
+call putclass
+
+directory(curdir'\wps')
+call putwps
+
+say 'finished'
+call directory curdir
+exit 0
+

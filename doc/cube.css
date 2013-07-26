@@ -1,0 +1,17 @@
+body {background-color:#ffffee}
+div.nav {float:right; background-color:#eeffff}
+div div.nav {text-indent:2em}
+p {text-indent:3em}
+code.cmd {font-size:2em}
+h1 {text-align:center}pre {color:green}input {font-size:1.5em}
+textarea {font-size:1.5em}
+table {border-collapse:collapse; background-color:yellow; border: 3px solid black}
+th {text-align:left; text-indent:0em; color:red; border: 1px solid}
+td:first-child {text-align:left; text-indent:0em; color:black; 
+   border-bottom: 1px solid; border-left: 1px none}
+td {text-align:left; text-indent:0em; color:black; 
+   border-bottom: 1px solid; border-left: 1px dotted}
+th.cmd {font-size=1.8em; font-family:monospace}
+td.cmd {border-top:3px solid black}
+td.verb {background-color:#ffaaaa; border:5px ridge black}
+code {color:#663300}

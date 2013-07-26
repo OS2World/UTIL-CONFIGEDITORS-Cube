@@ -1,0 +1,179 @@
+-- c:\config.sys
+
+al "REM DICTIONARY"
+rl "SET DUX_AHD_DATA=" with "SET DUX_AHD_DATA=d:\AHD" (addbottom
+
+al "REM CUBE"
+as "d:\CUBE\BIN;" in "SET PATH=" (after
+
+al "REM EMX"
+as "d:\EMX\DLL;" in "LIBPATH=" (after
+as "d:\EMX\BIN;" in "SET PATH=" (after
+
+al "REM EPM"
+as "d:\EPM;" in "LIBPATH=" (before "C:\OS2\APPS\DLL;"
+as "d:\EPM;" in "SET PATH=" (before "C:\OS2\APPS;"
+as "d:\EPM;" in "SET DPATH=" (before "C:\OS2\APPS;"
+as "d:\EPM;" in "SET HELP=" (after "C:\OS2\HELP;"
+rl "SET EPMPATH=" with "SET EPMPATH=d:\EPM;" (addbottom
+
+al "REM JAVA"
+as "d:\Java131\JRE\DLL;" in "LIBPATH=" (before "C:\os2\apps\DLL;"
+as "d:\Java131\JRE\Bin;d:\Java131\Bin;" in "SET PATH=" (before "C:\os2\apps;"
+rl "SET JAVA_HIGH_MEMORY=" with "SET JAVA_HIGH_MEMORY=1" (addbottom
+rl "SET JAVA_HOME=" with "SET JAVA_HOME=d:\Java131" (addbottom
+as ".;" in "SET inCLUDE=" (after addbottom
+as "d:\Java131\inCLUDE;" in "SET inCLUDE=" (after
+as "d:\myjlib\gjarvis.zip;" in "SET CLASSPATH=" (after
+as "d:\CP\DOM4J-full.jar;d:\cp\jaxp.jar;" in "SET CLASSPATH=" (after
+as "d:\Java131\LIB;" in "SET LIB=" (after
+
+ds "d:\Java11\DLL;" in "LIBPATH="
+ds "d:\Java11\Bin;" in "SET PATH="
+ds "d:\Java13\JRE\DLL;" in "LIBPATH="
+ds "d:\Java13\JRE\Bin;d:\Java13\Bin;" in "SET PATH="
+ds "d:\Java13\inCLUDE;" in "SET inCLUDE="
+ds "d:\Java13\LIB;" in "SET LIB="
+
+al "REM LAN"
+rl "SET USER=" with "SET USER=gjarvis" (addbottom
+rl "SET HOSTNAME=" with "SET HOSTNAME=%hostname%" (addbottom env
+rl "SET USE_HOSTS_FIRST=" with "SET USE_HOSTS_FIRST=1" (addbottom
+dl "DEVICE=C:\TCPIP\Bin\VDOSTCP.VDD"
+dl "DEVICE=C:\TCPIP\Bin\VDOSTCP.SYS"
+dl "RUN=C:\TCPIP\Bin\VDOSCTL.EXE"
+
+al "REM MISC"
+as "d:\Bin;" in "SET PATH=" (after
+as "d:\DLL;" in "LIBPATH=" (after
+rl "SET PROGRAMS=" with "SET PROGRAMS=D:\programs"
+
+al "REM MOZILLA"
+rl "SET MOZILLA_HOME=" with "SET MOZILLA_HOME=d:\" (addbottom
+as "d:\mozilla\mozilla;" in "LIBPATH=" (after ".;"
+as "d:\mozilla\mozilla;" in "SET PATH=" (before
+ds "d:\mozilla\bin;" in "LIBPATH="
+ds "d:\mozilla\bin;" in "SET PATH="
+ds "C:\PROGRAMS\BROWSER;" in "LIBPATH="
+ds "C:\PROGRAMS\BROWSER;" in "SET PATH="
+ds "C:\PROGRAMS\NETSCAPE\PROGRAM;" in "LIBPATH="
+ds "C:\PROGRAMS\NETSCAPE\PROGRAM;" in "SET PATH="
+
+al "REM MRFILEPM"
+rl "SET MRFILE_PATH=" with "SET MRFILE_PATH=d:\apps" (addbottom
+as "d:\APPS;" in "SET HELP=" (after
+
+al "REM NETBEANS"
+rl "SET USER_DIR=" with "SET USER_DIR=d:\HOME\NETBEANS" (addbottom
+
+al "REM ODin"
+as "d:\ODin\SYSTEM32;" in "LIBPATH=" (after
+as "d:\ODin\SYSTEM32;" in "SET PATH=" (after
+
+al "REM OTHER DRIVERS"
+rl "BASEDEV=OS2ASPI.DMD" with "BASEDEV=OS2ASPI.DMD /ALL" (addbottom
+al "DEVICE=d:\driver\aspirout.sys" (after "BASEDEV=OS2ASPI.DMD"
+
+al "REM SYSTEM"
+rl "RESERVEDRIVELETTER=" with "RESERVEDRIVELETTER=R" (addtop
+rl "IFS=C:\OS2\HPFS.IFS" with "IFS=C:\OS2\HPFS.IFS /CACHE:1024 /CRECL:4 /AUTOCHECK:*"
+rl "SET TZ=" with "SET TZ=EST5EDT,4,1,0,7200,10,-1,0,7200,3600" (addbottom
+al "REM SET RESTARTOBJECTS=NO"  (after "SET AUTOSTART"
+rl "SET RESTARTOBJECTS=" with "SET RESTARTOBJECTS=STARTUPFOLDERSONLY,REBOOTONLY" (after "SET AUTOSTART"
+ds "CONNECTIONS," in "SET AUTOSTART=" (noterm
+rl "PAUSEONERROR=" with "PAUSEONERROR=YES" (addbottom
+cl "SET DELDIR=" with "REM "
+
+al "REM TOOLKIT"
+as "d:\os2tk45\samples\mm\dll;d:\os2tk45\som\common\dll;d:\os2tk45\som\lib;d:\os2tk45\dll;" in "LIBPATH="
+as  "d:\os2tk45\som\common;d:\os2tk45\som\bin;d:\os2tk45\bin;" in "SET PATH=" (before
+as  "d:\os2tk45\som\common\system;d:\os2tk45\som\msg;d:\os2tk45\msg;" in "SET DPATH=" (before
+as  "d:\os2tk45\help;" in "SET HELP=" (before
+as  "d:\os2tk45\book;" in "SET BOOKSHELF=" (before
+as  "d:\os2tk45\msg\%N;" in "SET NLSPATH=" (before
+as  "d:\os2tk45\ipfc;" in "SET IPFC=" (before
+al "SET SOMBASE=d:\os2tk45\som"
+as  "d:\os2tk45\speech\lib;d:\os2tk45\samples\mm\lib;d:\os2tk45\lib;d:\os2tk45\som\lib;" in "SET LIB=" (before
+al "SET SOMRUNTIME=d:\os2tk45\som\common"
+al "SET CPREF=CP1.inF+CP2.inF+CP3.inF"
+al "SET GPIREF=GPI1.inF+GPI2.inF+GPI3.inF+GPI4.inF"
+al "SET MMREF=MMREF1.inF+MMREF2.inF+MMREF3.inF"
+al "SET PMREF=PM1.inF+PM2.inF+PM3.inF+PM4.inF+PM5.inF"
+al "SET HELPNDX=epmkwhlp.ndx"
+al "SET WPSREF=WPS1.inF+WPS2.inF+WPS3.inF"
+as  "d:\os2tk45\speech\h;d:\os2tk45\som\include;d:\os2tk45\inc;d:\os2tk45\h\gl;d:\os2tk45\h;d:\os2tk45\h\libc;" in "SET inCLUDE=" (before
+al "SET SMADDSTAR=1"
+al "SET SMEMIT=h;ih;c"
+al "SET SMTMP=C:\"
+as  "d:\os2tk45\h;d:\os2tk45\idl;.;d:\os2tk45\som\include;" in "SET SMinCLUDE=" (before
+al "SET SMCLASSES=wptypes.idl"
+
+al "REM X11"
+rl "SET TERM=" with "SET TERM=ansi" (addbottom
+rl "SET HOME=" with "SET HOME=d:\home" (addbottom
+as "d:\XFREE86\LIB;" in "LIBPATH=" (after
+as "d:\XFREE86\Bin;" in "SET PATH=" (after
+
+
+***************************
+when karen
+
+
+*al "REM AMOUSE"
+*as "C:\AMOUSE;" in "LIBPATH=" (after
+*as "C:\AMOUSE;" in "SET HELP=" (after
+*cl "DEVICE=C:\OS2\BOOT\MOUSE.SYS" with "REM *AMouse* "
+*al "DEVICE=C:\AMOUSE\AMOUSE.SYS" (after "REM *AMouse* "
+
+al "REM DUALSTOR"
+as "d:\DUALSTOR;" in "LIBPATH=" (after
+as "d:\DUALSTOR;" in "SET PATH=" (after
+al "DEVICE=d:\DUALSTOR\IP22DRV.SYS"
+al "RUN=d:\DUALSTOR\IP2XDMN.EXE"
+al "SET IRSKIPDISK=ab"
+
+al "REM OTHER DRIVERS"
+*cl "BASEDEV=IBM1S506.ADD" with "REM "
+*rl "BASEDEV=danis506.ADD" with "BASEDEV=danis506.add /A:1 /U:0 /BM /VL" (after "BASEDEV=IBM1S506.ADD"
+*al "basedev=daniatap.flt" (after "BASEDEV=danis506.add"
+
+al "REM SYSTEM"
+rl "SWAPPATH=" with "SWAPPATH=N:\SWAPPER 2048 18432"
+
+***************************
+when tina
+
+*al "REM OTHER DRIVERS"
+rl "BASEDEV=IBM1S506.ADD" with "BASEDEV=danis506.ADD"
+rl "BASEDEV=danis506.ADD" with "BASEDEV=danis506.ADD /A:1 /BAY"
+rl "basedev=daniatap.flt" with "basedev=daniatap.flt /A:1 /TYPE:W" (after "BASEDEV=danis506.add"
+*no serial port
+cl "DEVICE=C:\eCS\system\SIOeCS\" with "rem "
+*skip possible error
+rl "CALL=C:\OS2\CMD.EXE /Q /C C:\MPTN\BIN\MPTSTART.CMD" with "CALL=C:\OS2\CMD.EXE /Q /C C:\MPTN\BIN\MPTSTART.CMD >NUL 2>NUL"
+*virtual disk
+al "DEVICE=C:\OS2\BOOT\VFDISK.SYS"
+*cdrecord2
+rl "set cdr_device=" with "set cdr_device=1,0" (addbottom
+
+***************************
+when usb
+onerror continue
+al "BASEDEV=USBEHCD.SYS" (copy "#ehci#" key before "BASEDEV=USBD.SYS"
+al "BASEDEV=USBUHCD.SYS" (copy "#uhci#" key before "BASEDEV=USBD.SYS"
+al "BASEDEV=USBOHCD.SYS" (copy "#ohci#" key before "BASEDEV=USBD.SYS"
+onerror stop
+al "BASEDEV=USBD.SYS"
+al "BASEDEV=USBHID.SYS"
+al "BASEDEV=USBMSD.ADD"
+dl "BASEDEV=USBCDROM.ADD"
+rl "BASEDEV=USBD.SYS" with "BASEDEV=USBD.SYS /REQ:USBUHCD$,USBOHCD$,USBEHCD$ /V"
+rl "BASEDEV=USBMSD.ADD" with "BASEDEV=USBMSD.ADD /FLOPPIES:1 /REMOVABLES:3 /V"
+al "DEVICE=C:\OS2\BOOT\USBKBD.SYS"
+al "DEVICE=C:\OS2\BOOT\USBMOUSE.SYS"
+al "DEVICE=C:\OS2\BOOT\USBCOM.SYS"
+al "DEVICE=C:\OS2\BOOT\USBPRT.SYS"
+al "DEVICE=C:\OS2\BOOT\USBRESMG.SYS"
+
+
+

@@ -1,0 +1,17 @@
+-- c:\mptn\bin\setup.cmd
+rl "ifconfig lo" with "ifconfig lo 127.0.0.1"
+rl "ipgate" with "ipgate on"
+
+when karen
+rl "rem ifconfig lan0" with "ifconfig lan0"
+rl "ifconfig lan0" with "ifconfig lan0 192.168.1.10 netmask 255.255.255.0 metric 1 mtu 1500"
+cl "dhcpstrt" with "rem "
+rl "route add default" with "route add default 192.168.1.1 -hopcount 1" (addbottom
+rl "route add -net" with "route add -net 192.168.1 192.168.1.1 -hopcount 1" (addbottom
+
+when tina
+cl "ifconfig lan0" with "rem "
+rl "dhcpstrt" with "dhcpstrt -i lan0 -d 0"
+*al "if errorlevel 0 goto hell" (after "dhcpstrt4"
+*al "hell:"  (after
+

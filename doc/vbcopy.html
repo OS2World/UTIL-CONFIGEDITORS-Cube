@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+ <link rel="stylesheet" type="text/css" href="cube.css">
+ <link rel="stylesheet" alternate="print" type="text/css" href="cube.css">
+ <style>
+ </style>
+ <title>VBCOPY 1.1</title>
+</head>
+<body>
+<a href="index.html">Family members</a>
+<h1>VBCOPY V1.1 </h1>
+<br>
+
+<h2>DISCLAIMER</h2>
+
+<p>I or any other contributors allow you to use and modify freely under
+the condition that I or other contributors are in no way responsible
+for any damage or loss you may suffer.</p>
+
+<h2>WHAT'S NEW</h2>
+
+<p>If source date is older than the destination date then update the source file.<p>
+
+<h2>HISTORY</h2>
+
+<table>
+ <caption>History</caption>
+ <col width="100"><col width="100"><col>
+ <tbody>
+<tr><td>03/07/03</td><td>V1.1</td>
+<td>compare date (gjarvis@ieee.org)</td></tr>
+<tr><td>17/06/02</td><td>V1.0</td>
+<td>Initial version (gjarvis@ieee.org)</td></tr>
+ </tbody>
+</table>
+
+<h2>DOCUMENTATION</h2>
+
+<p>VBCOPY is a REXX procedure used to copy a tree of files but calls VBACK on
+destination  before and after copying. </p>
+
+<p>For each file in source tree:
+<ul>
+<li>If source date is newer than the destination date then update the destinationn file.</li>
+<li>If source date is older than the destination date then update the source file.</li>
+<li>If source date is equal to the destination date then do nothing.</li>
+</ul></p>
+
+<h2>Command Line Syntax</h2>
+
+<table>
+ <caption>Command Line Syntax</caption>
+ <col width="200"><col>
+ <tbody>
+
+<tr><td class="cmd" colspan="2">
+VBCOPY from to<br/>
+VBCOPY
+</td></tr>
+
+ <tr>
+ <th>Parameter</th>
+ <th>Description</th>
+ </tr>
+
+<tr>
+<td>from</td>
+<td>from path  (source)</td>
+</tr>
+
+<tr>
+<td>to</td>
+<td>to path (destination)</td>
+</tr>
+
+<tr>
+<td>Note:</td>
+<td><ul>
+<li>if no parameters the usage is printed</li>
+<li>calling from another REXX script requires a <code>CALL</code> prefix</li>
+</ul></td>
+</tr>
+
+ </tbody>
+</table>
+
+
+<h2>Examples:</h2>
+
+<pre>call VBCOPY 'myos2' 'C:\'</pre>
+
+<p>/* Looks at all files in directory and sub-directory of 'myos2' relative to
+current path.  Call VBACK for each corresponding file relative to 'C:\'.
+Copies the tree of files.  Again calls VBACK for each corresponding file
+relative to 'C:\'.  */</p>
+

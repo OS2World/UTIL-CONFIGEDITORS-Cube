@@ -1,0 +1,942 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+ <link type="text/css" href="cube.css" rel="stylesheet">
+ <style>
+
+
+ </style>
+ <title>CUBE V3.3</title>
+</head>
+<body>
+<a href="index.html">Family members</a>
+<h1>CUBE V3.3</h1>
+<br>
+
+<h2>DISCLAIMER</h2>
+
+<p>I or any other contributors allow you to use and modify freely under
+the condition that I or other contributors are in no way responsible
+for any damage or loss you may suffer.</p>
+
+<h2>WHAT'S NEW</h2>
+
+<ul>
+<li>new COMMENT TOP, AL (COPY</li>
+<li>MAKE can be several words</li>
+<li>braces for single command for backward compatibility</li>
+<li>improved UPKWD</li>
+<li>datapath mapping</li>
+
+
+
+<li>All strings are dynamic delimited with a large set of potential delimiters.  The strings of
+both parameters and options of both commands and command line are dynamic delimited.</li>
+<li>Rewrote the documentation in xhtml 1.0 and css2 format making it easier to read.</li>
+<li>Strings in options are now excluded from keyword search.</li>
+<li>Code reuse heavily exploited options and command line.</li>
+<li>RS() is replaced by ENV & KEY with greater flexibility.</li>
+<li>Requires Object REXX rather than Classic REXX. Unfortunately, in a fresh install
+Classic REXX is the default. To switch between the two REXX, type <code>switchrx</code>
+at command prompt, enter "y" return and then reboot. For unattended installs, run switchrx
+with input redirected a text file during last phase of the install.</li>
+<li>ADDSTRING\DELSTRING now handles separation char. The biggest use of these functions
+is in various paths in config.sys which normally have a semicolon at the end. However,
+sometimes the terminating semicolon isn't there. Furthermore, in <code>set autostart=</code>
+the comma separated string has no comma at the end (option NOTERM).</li>
+</ul>
+
+<h2>HISTORY</h2>
+
+<table>
+ <caption>History</caption>
+ <col width="80"><col width="60"><col>
+ <tbody>
+<tr><td>09/10/03</td><td>V3.3</td><td>new COMMENT TOP, AL (COPY<br/>
+MAKE can be several words<br/>
+braces for single command for backward compatibility<br/>
+improved UPKWD<br/>
+datapath mapping              (gjarvis@ieee.org)</td></tr>
+<tr><td>24/05/03</td><td>V3.2</td><td>dynamic string delimiters<br/>
+rewrote documentation in xhtml format<br/>
+strings in options are excluded from keyword search<br/>
+code reuse heavily exploited command line<br/>
+RS()->ENV & KEY with greater flexibility<br/>
+tested and fixed most options<br/>
+requires Object REXX          (gjarvis@ieee.org)</td></tr>
+<tr><td>20/03/03</td><td>V3.1</td><td>unreleased - untested code)    (gjarvis@ieee.org)<br/>
+ADDSTRING\DELSTRING now handles separation char</td></tr>
+<tr><td>25/06/02</td><td>V3.0</td><td>In procedure "C:\" replaced by actual boot path<br/>
+Added verb COMMENT & IGNORESPACES<br/>
+New cmd line print usage & option VBACK<br/>
+show only changed lines<br/>
+(gjarvis@ieee.org)</td></tr>
+<tr><td>04/06/93</td><td>V2.6</td><td>Add 'procedure read from QUEUE' (from Steve</td></tr>
+<tr><td>03/06/93</td><td>V2.5</td><td>Add IF/IFNOT to xLINE cmds (generalize N. Marks<br/>
+Correct ADDSTRING BEFORE option  (Neil Marks)</td></tr>
+<tr><td>07/04/93</td><td>V2.4</td><td>Corrected ADDBOTTOM/ADDTOP in ADDSTRING (Per Hertz)<br/>
+Address cmd + CHECK Option + new exit rtne</td></tr>
+<tr><td>21/01/93</td><td>V2.3</td><td>Added user defined string delimiter in CUBE cmds</td></tr>
+<tr><td>21/12/92</td><td>V2.2</td><td>Added conditionnal command processing (WHEN)</td></tr>
+<tr><td>26/11/92</td><td>V2.1</td><td>RS() for DL, DS (desinstallation case)<br/>
+New LINEID command (strip leading chars)<br/>
+ADDTOP,ADDBOTTOM for AS (W. Pachl requirement)<br/>
+Fix Whereis (Walter Pachl).<br/>
+Exit with SaveFile return code (Walter Pachl)</td></tr>
+<tr><td>18/11/92</td><td>V2.0</td><td>Changes with environment variable substitution (RS)<br/>
+(AS, RS, AL & AL now all have same RS() option)<br/>
+Logging of all changes made to Target File<br/>
+Adapt/Include some of Walter Pachl's enhancements:<br/>
+Single CUBE command on command line<br/>
+Add'l string substitution at command line level<br/>
+PAUSE option (debugging purposes)</td></tr>
+<tr><td>05/11/92</td><td>V1.5</td><td>AL with pre substitution</td></tr>
+<tr><td>03/11/92</td><td>V1.4</td><td>AS with substitution ; fix RS recursion.</td></tr>
+<tr><td>02/11/92</td><td>V1.3</td><td>Bug fixes & cmds abbrev, thanks to Walter Pachl.<br/>
+Target Backup & lineid no more limited to col 1.</td></tr>
+<tr><td>30/10/92</td><td>V1.2</td><td>Added env variable substitution + version #</td></tr>
+<tr><td>31/08/92</td><td>V1.1</td><td>Bug fix</td></tr>
+<tr><td>21/07/92</td><td>V1.0</td><td>Initial revision<br/>
+Didier LAFON - LAFON at CBEPROFS</td></tr>
+ </tbody>
+</table>
+
+<h2>DOCUMENTATION</h2>
+
+<p> CUBE is a REXX procedure used to modify a CONFIG.SYS-like ASCII file
+(the Target File), based on a set of CUBE's commands (the Procedure
+File).</p>
+<p> CUBE was initially developed to automatically create/update
+CONFIG.SYS or STARTUP.CMD files. It may be integrated in dynamic
+processes used to customize PS/2 configurations. Any other ASCII file
+(such as profiles, commands files, etc...) may also be customized with
+CUBE.</p>
+<p> CUBE has its own set of commands (described below) that provide
+editing functions at the line and string levels. This set of commands
+includes ADD, REPLACE and DELETE functions.</p>
+<p>Commands consist of keywords and strings. Keywords can be any case.
+All strings are surrounded by a character delimiter from the set
+<code class="cmd">"'`!@#$%^&amp;</code>. This set is easy to remember on a QWERTY
+layout keyboard.  All 3 quotes plus shift_1 to shift_7.
+Both ends of string must use the same delimiter. The case of strings are always
+preserved on target modifications but for string matches, which can be modified, the default being
+case insensitive.</p>
+<p>Some commands have options. When using an options, the first option is preceded by a left
+brace. Options, unlike parameters, may be given in any order. An option consist of a keyword
+and may have a string following the keyword.</p>
+
+<p> Most of CUBE's commands require identification of the Target File
+line they act upon: the line will be identify by its leftmost
+characters (as many as necessary for a precise or generic
+identification) starting from column 1. This was inherited from the
+CONFIG.SYS type of file CUBE was created for. However, the option
+'*ID', wherever available, tells CUBE to identify the Target File line
+as any line containing the identification string, starting at any
+position. Furthermore, the command <a href="#lineid">LINEID</a> may specify that leading
+characters in Target File lines should be ignored (stripped) for
+identification or handle text profiles intelligently. You can define what defines a comment
+in a Target file an exclude them from identification. You can define begin, block, trail and top
+<a href="#comment">comments</a>.</p>
+<p>Strings at CUBE's execution time are replaced by their current value at execution time.  
+Both <code>D:\</code> is replaced with actual data path which is defined as the drive 
+running CUBE and <code>C:\</code> is replaced with actual boot path.</p>
+<p>Strings may be further customized at CUBE's
+execution time: strings may contain 'variables' names that will be
+replaced by their current value at execution time. This is known as
+'substitution' and comes in two flavors: command line substitution and
+environment variable substitution. Command line substitution: values
+of variables are passed in the command line with the <a href="#key">KEY</a> option. Environment
+variable substitution: values of variables are those of currently defined OS/2
+environment variables at CUBE's execution time. Substitution in a Target File line only occurs if
+this line is processed by a CUBE's command with corresponds KEY or ENV option.
+The value of both keywords and environment variables, case is preserved and may include any
+character including spaces. If a value is missing,  then it is flagged as an error which can
+be changed by <a href="#onerror">ONERROR</a> command or preferably check with
+command line option <a href="#test">TEST</a>.</p>
+<p>You can select parts of a Procedure File to be executed by using both command
+<a href="#when">WHEN</a> and command line option <a href="#make">MAKE</a>. These can also tested
+with command line option <a href="#test">TEST</a>.</p>
+
+
+<h2>Command Line Syntax</h2>
+
+<table>
+ <caption>Command Line Syntax</caption>
+ <col width="200"><col>
+ <tbody>
+
+<tr><td class="cmd" colspan="2">
+CUBE procfname targetfname [backupfname] [(options] [&gt;log-fname]<br/>
+CUBE 'single cube command' targetfname [backupfname] [(options] [&gt;log-fname]<br/>
+CUBE QUEUE targetfname [backupfname] [(options] [&gt;log-fname]<br/>
+CUBE
+</td></tr>
+
+ <tr>
+ <th>Parameter</th>
+ <th>Description</th>
+ </tr>
+
+<tr>
+<td>procfname</td>
+<td> name of Procedure file containing CUBE's commands </td>
+</tr>
+
+<tr>
+<td>targetfname</td>
+<td>name of target file to modify</td>
+</tr>
+
+<tr>
+<td>backupfname</td>
+<td>name of the original target file renamed to *.bak </td>
+</tr>
+
+<tr>                                                     
+<td>log-fname</td>
+<td>name of log file to catch standard out </td>
+</tr>
+
+<tr>
+<td>Notes:</td>
+<td><ul>
+<li>For single cube command passed on command line, use either braces or a dynamic delimiter. </li>
+<li>QUEUE (uppercase!) is the required keyword when CUBE is called from a REXX command that
+have 'queued' cube commands in the session queue, rather than used a Procedure file. </li>
+<li>If no arguements are given then the commmand line usage is displayed.</li>
+</ul></td>
+</tr>
+
+<tr>
+<th>Options</th>
+<th>Description</th>
+</tr>
+
+<tr>
+<td id="pause">PAUSE</td>
+<td>pauses after each command executed from Procfname Each command is displayed even if no change
+in target rather only show command for changed target line. </td>
+</tr>
+
+<tr>
+<td id="check">CHECK</td>
+<td>CUBE but *DON'T SAVE* the Target File. Return code will reflect the number of
+changes that would occur in Target File. Each command is displayed even if no change in target
+rather only show command for changed target line. </td>
+</tr>
+
+<tr>
+<td id="vback">VBACK</td>
+<td>Uses <a href="vback.html">VBACK</a>, an intelligent back up routine. Only backs if file date
+has changed. Back up existing target file if needed. Back up the new target file if needed. </td>
+</tr>
+
+<tr>
+<td id="make">MAKE "c<sub>1</sub> c<sub>2</sub>  ..."</td>
+<td> Implements the 'conditional command execution'. CUBE will only execute the profile's commands
+that are under the control of a matching WHEN command. See WHEN command for explanations.
+Codes are space seperated alpha-numeric identifer that's case insensitive. Empty list is valid.</td>
+</tr>
+
+<tr>
+<td id="key">KEY "k<sub>1</sub> 'v<sub>1</sub>' k<sub>2</sub> 'v<sub>2</sub>' ...."</td>
+<td>Specifies a list of keyword and value pairs. CUBE will replace each occurrence of a keyword, in
+commands that have a KEY option set, with its corresponding value. Substitution is done when
+command is processed. </td>
+</tr>
+
+<tr>
+<td id="test">TEST</td>
+<td>Test for [WHEN] command and [KEY] and [ENV] options by running in a dummy mode showing all
+[WHEN] and undefine [KEY] and [ENV]. </td> </tr>
+
+ </tbody>
+</table>
+
+
+<h3>examples:</h3>
+<pre>
+CUBE c:\config.pro config.sys config.bak &gt;cube.log
+CUBE p.cub config.sys (KEY "drive1 #D:# drive2 #E:#" pause
+CUBE {RS "F:\" WITH "G:\" (ALL} startup.cmd &gt;startup.log
+CUBE QUEUE appl.pro</pre>
+
+<h3>Other Recommend Tools</h3>
+
+<a href=""></a><br/>
+<a href="http://nepmd.netlabs.org/">Netlabs EPM Distribution</a><br/>
+<a href="http://hobbes.nmsu.edu/cgi-bin/h-viewer?sh=1&fname=/pub/os2/util/misc/pci048vka.zip">PCI
+card sniffer</a><br/> <a href="http://members.datafast.net.au/dft0802/">Craig's PCI page</a><br/>
+<a href="http://hobbes.nmsu.edu/cgi-bin/h-search?sh=1&button=Search&key=initor&stype=all&sort=type&dir=%2F">Initor</a> (simple INI editor)<br/>
+<a href="http://hobbes.nmsu.edu/cgi-bin/h-viewer?sh=1&fname=/pub/os2/util/disk/os2gfc.zip">Graphical File Compare</a><br/>
+
+<h2>CUBE Procedure File Syntax</h2>
+
+<p>The Procedure file is a text file that is read one line at a time.
+Blank lines are ignored. Comments lines may be inserted,
+with either '*' or '--' as their first character(s) are also ignored.
+Non-ignored lines are treated as commands.</p>
+
+<p>Commands may span on more than one line. A comma must end the line
+that is to be continued on next line. Strings can not be split.
+Blank and comments lines may not appear in between continuation lines of a command.</p>
+
+<p>Commands are divided into two groups: modifiers and functions.
+Modifiers have an effect interpretation on subsequent commands.
+Functions operate on the target file.<p>
+
+
+
+<table>
+ <caption>Modifiers</caption>
+ <col width="150"><col>
+ <tbody>
+
+<tr>
+<td class="verb" id="case">CASE</td>
+<td class="cmd">specify how Procedure and Target strings are handled for strings comparisons. Once set, it applies for both line
+identifications and strings identifications within line.</td>
+</tr>
+ <tr>
+ <th>Parameter</th>
+ <th class="cmd">CASE SENSITIVE | IGNORE </th>
+ </tr>
+<tr>
+<td>SENSITIVE</td>
+<td>strings comparisons will be case sensitive.</td>
+</tr>
+<tr>
+<td>IGNORE</td>
+<td>strings comparisons will NOT be case sensitive. ex: "AbCdef" matches "ABCDEf". Default is IGNORE if no CASE command
+issued.</td>
+</tr>
+
+
+<tr>
+<td class="verb" id="comment">COMMENT</td>
+<td class="cmd">Defines what constitutes comments in a target file. This command is useful for text profiles as
+C:\ibmlan\ibmlan.ini rather than config.sys. One may define upto 3 different comment types.</td>
+</tr>
+ <tr>
+ <th>Parameter</th>
+ <th class="cmd">COMMENT BEGIN "x" | BLOCK "x" TO "y" | TAIL "x" | TOP "x"</th>
+ </tr>
+<tr>
+<td>BEGIN "x"</td>
+<td>A line beginning with <code>x</code> is ignored</td>
+</tr>
+<tr>
+<td>BLOCK "x" TO "y"</td>
+<td>All lines between <code>x</code> and <code>y</code> are ignored. <code>x</code> and <code>y</code> can proceeded by
+any characters. If <code>x</code> is preceded by non-blank characters then it is treated as tail comment.</td>
+</tr>
+<tr>
+<td>TAIL "x"</td>
+<td>If a line containing <code>x</code> is proceeded by spaces then line is ignored else the rest of line is excluded
+from string matches. Default is no comments defined.</td>
+</tr>
+<tr>
+<td>TOP "x"</td>
+<td>If <code>x</code> is a number then the top <code>x</code> lines is treated as a comment,
+else the first line to the line containing <code>x</code> anywhere on the line is treated 
+as a comment. Any function that insert a line at top will actually insert line after this 
+top comment.</td>
+</tr>
+
+
+<tr>
+<td class="verb" id="lineid">LINEID </td>
+<td class="cmd">specify that indentation of Target File lines should begin at column 1 (CUBE's default) or ignore leading
+characters.</td> </tr>
+ <tr>
+ <th>Parameter</th>
+ <th class="cmd">LINEID NOSTRIP | STRIP "x" | PROFILE</th>
+ </tr>
+<tr>
+<td>NOSTRIP</td>
+<td>return to default CUBE identification (column 1).</td>
+</tr>
+<tr>
+<td>STRIP "x"</td>
+<td>strip all leading <code>x</code> (one character) in the Target File lines for line identification. Default is
+NOSTRIP if no LINEID command issued.</td>
+</tr>
+<tr>
+<td>PROFILE</td>
+<td>If a string starts with at least one space then the target must also start with at least one
+space. The amount of indentation is not important in matches.  This command is useful for text
+profiles as C:\ibmlan\ibmlan.ini rather than config.sys. </td>
+</tr>
+
+
+<tr>
+<td class="verb" id="onerror">ONERROR </td>
+<td class="cmd">specify what action to be taken in case of syntax error while processing a command of the current Procedure
+File.</td>
+</tr>
+ <tr>
+ <th>Parameter</th>
+ <th class="cmd">ONERROR CONTINUE | STOP </th>
+ </tr>
+<tr>
+<td>CONTINUE</td>
+<td>issue error message and skip to next command.</td>
+</tr>
+<tr>
+<td>STOP</td>
+<td>issue error message and stop CUBE processing. All updates to the Target File will be lost in this case (even those applied
+before the ONERROR STOP command). Default is STOP if no ONERROR command issued.</td>
+</tr>
+
+
+<tr>
+<td class="verb" id="when">WHEN</td>
+<td class="cmd">CUBE's functions will only be executed if the CUBE's command line option
+MAKE matches one of the 'codes' specified.  Applies until another WHEN command is found.
+Note that all modifiers will always be executed.  The space separated list has no
+delimiters and can be any alpha-numeric identifier or an asterisk.  An asterisk will match
+any make.  At the start of CUBE there is an implicit asterisk.</td> </tr>
+ <tr>
+ <th>Parameter</th>
+ <th class="cmd">WHEN code<sub>1</sub> code<sub>2</sub> ... code<sub>n</sub> </th>
+ </tr>
+<tr>
+<td>code<sub>i</sub></td>
+<td>can be any alpha-numeric identifer that's case insensitive. 
+<code>"*"</code> always matches the MAKE option.  Default is * (no WHEN command specified)</td>
+</tr>
+
+
+</tbody>
+</table>
+
+
+
+<table>
+ <caption>Functions</caption>
+ <col width="100"><col>
+ <tbody>
+
+<tr>
+<td class="verb" id="addline">ADDLINE</td>
+<td class="cmd">Conditionally Adds a LINE to the Target File. Position of the line may be specified by reference to an existing
+line.</td>
+</tr>
+ <tr>
+ <th>Parameter</th>
+ <th class="cmd">ADDLINE line [( options]<br/> AL   line [( options]</th>
+ </tr>
+<tr>
+<td>line </td>
+<td>representing the line to be added</td>
+</tr>
+<tr>
+<th>Options</th>
+<th class="cmd">[AFTER|BEFORE [ONLY]] [IFNEW|ALWAYS|COPY] [*ID] [ENV] [KEY] [IF|IFNOT] </th>
+</tr>
+<tr>
+<td>AFTER ["x"]</td>
+<td>if <code>line</code> not found then add <code>line</code> after lineid <code>x</code>. If <code>x</code> is not
+found then add to bottom of the Target file. </td>
+</tr>
+<tr>
+<td>BEFORE ["x"]</td>
+<td>if <code>line</code> not found then add <code>line</code> before lineid <code>x</code>. If <code>x</code> is not
+found then add to top of the Target file. </td>
+</tr>
+<tr>
+<td>ONLY</td>
+<td>with AFTER/BEFORE add only if <code>x</code> found.</td>
+</tr>
+<tr>
+<td>IFNEW</td>
+<td>add line only if not already there (default) </td>
+</tr>
+<tr>
+<td>ALWAYS </td>
+<td>always add line (even if already there) </td>
+</tr>
+<tr>
+<td>COPY "n"</td>
+<td>add line[s] until there are <code>n</code> lines exist.  <code>n</code> maybe zero.
+Extra existing lines will be deleted.  The options <code>ENV</code> and <code>KEY</code>
+also operate on <code>n</code>.  If <code>n</code> is not a number then it is treated as
+zero.</td>
+</tr>
+<tr>
+<td>*ID </td>
+<td>target line identification anywhere in the line. </td>
+</tr>
+<tr>
+<td>ENV ["x"]</td>
+<td><code>line</code> and <code>COPY n</code> in these lines may contains environment variables. Optional <code>x</code>,
+default "%", defines delimit character</td>
+</tr>
+<tr>
+<td>KEY ["x"]</td>
+<td><code>line</code> and <code>COPY n</code> in these lines may contains keywords from commmand line option <code>KEY</code>.
+Optional <code>x</code>, default "#", defines delimit character</td>
+</tr>
+<tr>
+<td>IF "x" </td>
+<td>Add only if a line identified by <code>x</code> exists in the Target File. </td>
+</tr>
+<tr>
+<td>IFNOT "x" </td>
+<td>Add only if a line identified by <code>x</code> doesn't exist in Target File. </td>
+</tr>
+
+
+<tr>
+<td class="verb" id="addstring">ADDSTRING </td>
+<td class="cmd">Add a string within a given line of Target File. the position of the string is specified by reference to an
+existing string within the line.</td>
+</tr>
+ <tr>
+ <th>Parameter</th>
+<th class="cmd">ADDSTRING string IN lineid [(Options]<br/> 
+AS    string IN lineid [(Options] </th> </tr> <tr>
+<td>string </td>
+<td>is the string to be added to the target line. Note that last character is interpreted as a string separator
+character. </td>
+</tr>
+<tr>
+<td>lineid </td>
+<td>identifies the target line. </td> </tr>
+<tr>
+<th>Options</th>
+<th class="cmd">[AFTER|BEFORE] [NOTERM] [IFNEW|ALWAYS] [ALL|FIRST|LAST] [*ID] [ENV] [KEY] [ADDTOP|ADDBOTTOM]</th>
+</tr>
+<tr>
+<td>AFTER ["x"]</td>
+<td>if <code>string</code> not found then add <code>string</code> after <code>x</code>. If <code>x</code> is not given
+then add to end of the line. </td> </tr>
+<tr>
+<td>BEFORE ["x"]</td>
+<td>if <code>string</code> not found then add <code>string</code> before <code>x</code>. If <code>x</code> is not given
+then add just after <code>lineid</code>.</td>
+</tr>
+<tr>
+<td>NOTERM</td>
+<td>the end of the line is not terminated with a character separator</td>
+</tr>
+<tr>
+<td>ALL </td>
+<td>add to all occurrences of <code>lineid</code> (default)</td>
+</tr>
+<tr>
+<td>FIRST</td>
+<td>add only to 1st occurrence of <code>lineid</code> </td>
+</tr>
+<tr>
+<td>LAST </td>
+<td>add only to last occurrence of <code>lineid</code> </td>
+</tr>
+<tr>
+<td>IFNEW </td>
+<td>add string only if not already there (default) </td>
+</tr>
+<tr>
+<td>ALWAYS </td>
+<td>always add string (even if already there) </td>
+</tr>
+<tr>
+<td>*ID </td>
+<td>target line identification anywhere in the line. </td>
+</tr>
+<tr>
+<td>ENV ["x"]</td>
+<td><code>string</code> in this line contains environment variables. Optional <code>x</code>,
+default "%", defines delimit character</td>
+</tr>
+<tr>
+<td>KEY ["x"]</td>
+<td><code>string</code> in this line contains keywords from commmand line option <code>KEY</code>.
+Optional <code>x</code>, default "#", defines delimit character</td>
+</tr>
+<tr>
+<td>ADDTOP </td>
+<td>if <code>lineid</code> not found, adds a new line at the top of the Target File. </td>
+</tr>
+<tr>
+<td>ADDBOTTOM</td>
+<td>if <code>lineid</code> not found, adds a new line at the bottom of the Target File.</td>
+</tr>
+
+
+<tr>
+<td class="verb" id="commentline">COMMENTLINE </td>
+<td class="cmd">Comment out a line in Target File. In fact, places a user-specified character string at the beginning of a
+line.</td> </tr>
+ <tr>
+ <th>Parameter</th>
+ <th class="cmd">COMMENTLINE lineid WITH type [(options]<br/> 
+ CL     lineid WITH type [(options] </th>
+ </tr>
+<tr>
+<td>lineid </td>
+<td>identifies the target line. </td> </tr>
+</tr>
+<tr>
+<td>type </td>
+<td>representing comment character(s) </td>
+</tr>
+<tr>
+<th>Options</th>
+<th class="cmd">[ALL|FIRST|LAST] [*ID] [IF|IFNOT]</th>
+</tr>
+<tr>
+<td>ALL </td>
+<td>comment all occurrences of <code>lineid</code> (default)</td>
+</tr>
+<tr>
+<td>FIRST </td>
+<td>only comments 1st occurrence of <code>lineid</code> </td>
+</tr>
+<tr>
+<td>LAST</td>
+<td>only comments last occurrence of <code>lineid</code> </td>
+</tr>
+<tr>
+<td>*ID</td>
+<td>target line identification anywhere in the line. </td>
+</tr>
+<tr>
+<td>IF "x" </td>
+<td>Comment only if a line identified by <code>x</code> exists in the Target File. </td>
+</tr>
+<tr>
+<td>IFNOT "x" </td>
+<td>Comment only if a line identified by <code>x</code> doesn't exist in Target File. </td>
+</tr>
+
+
+<tr>
+<td class="verb" id="delline">DELLINE </td>
+<td class="cmd">Delete a given LINE from Target File. </td>
+</tr>
+ <tr>
+ <th>Parameter</th>
+ <th class="cmd">DELLINE lineid [(options]<br/> DL   lineid [(options]</th>
+ </tr>
+<tr>
+<td>lineid </td>
+<td>identifies the target line. </td> </tr>
+</tr>
+<tr>
+<th>Options</th>
+<th class="cmd">[ALL|FIRST|LAST] [*ID] [ENV] [KEY] [IF|IFNOT]</th>
+</tr>
+<tr>
+<td>ALL</td>
+<td>deletes all occurrences of <code>lineid</code> (default) </td>
+</tr>
+<tr>
+<td>FIRST </td>
+<td>only deletes 1st occurrence of <code>lineid</code> </td>
+</tr>
+<tr>
+<td>LAST </td>
+<td>only deletes last occurrence of <code>lineid</code> </td>
+</tr>
+<tr>
+<td>*ID </td>
+<td>target line identification anywhere in the line.</td>
+</tr>
+<tr>
+<td>ENV ["x"]</td>
+<td><code>lineid</code> in this line contains environment variables. Optional <code>x</code>,
+default "%", defines delimit character</td>
+</tr>
+<tr>
+<td>KEY ["x"]</td>
+<td><code>lineid</code> in this line contains keywords from commmand line option <code>KEY</code>.
+Optional <code>x</code>, default "#", defines delimit character</td>
+</tr>
+<tr>
+<td>IF "x" </td>
+<td>Delete only if a line identified by <code>x</code> exists in the Target File. </td>
+</tr>
+<tr>
+<td>IFNOT "x" </td>
+<td>Delete only if a line identified by <code>x</code> doesn't exist in Target File.</td>
+</tr>
+
+
+<tr>
+<td class="verb" id="delstring">DELSTRING </td>
+<td class="cmd">Delete a given string in a given line of Target File. If no line is specified, then all occurrences of string
+within Target File will be deleted. All occurrences of the string in a given line are deleted. </td>
+</tr>
+ <tr>
+ <th>Parameter</th>
+ <th class="cmd">DELSTRING string [IN lineid] [(Options]<br/> DS    string [IN lineid] [(Options]</th>
+ </tr>
+<tr>
+<td>string </td>
+<td>representing the string to be deleted.</td>
+</tr>
+<tr>
+<td>lineid </td>
+<td>identifies the target line. Optional</td> </tr>
+</tr>
+<tr>
+<th>Options</th>
+<th class="cmd">[NOTERM] [ALL|FIRST|LAST] [*ID] [ENV] [KEY]</th>
+</tr>
+<tr>
+<td>NOTERM</td>
+<td>the end of the line is not terminated with a character separator</td>
+</tr>
+<tr>
+<td>ALL</td>
+<td>deletes in all occurrences of <code>lineid</code> (default)</td>
+</tr>
+<tr>
+<td>FIRST </td>
+<td>deletes only in 1st occurrence of <code>lineid</code> </td>
+</tr>
+<tr>
+<td>LAST</td>
+<td>deletes only in last occurrence of <code>lineid</code> </td>
+</tr>
+<tr>
+<td>*ID</td>
+<td>target line identification anywhere in the line.</td>
+</tr>
+<tr>
+<td>ENV ["x"]</td>
+<td><code>string</code> in this line contains environment variables. Optional <code>x</code>,
+default "%", defines delimit character</td>
+</tr>
+<tr>
+<td>KEY ["x"]</td>
+<td><code>string</code> in this line contains keywords from commmand line option <code>KEY</code>.
+Optional <code>x</code>, default "#", defines delimit character</td>
+</tr>
+
+
+<tr>
+<td class="verb" id="repline">REPLINE</td>
+<td class="cmd">Replace an entire LINE of Target File with a new text. The string used to identify the line to be replaced,
+corresponds
+to the leftmost characters of the line. If the line is not found within Target File, the new line may be added to the Target
+File.</td>
+</tr>
+ <tr>
+ <th>Parameter</th>
+ <th class="cmd">REPLINE lineid WITH replacement [(options]<br/> RL   lineid WITH replacement [(options]</th>
+ </tr>
+<tr>
+<td>lineid </td>
+<td>identifies the target line. </td> </tr>
+</tr>
+<tr>
+<td>replacement</td>
+<td>representing the new line</td>
+</tr>
+<tr>
+<th>Options</th>
+<th class="cmd">[ALL|FIRST|LAST] [ADDTOP|ADDBOTTOM|DONTADD] [*ID] [ENV] [KEY] [IF|IFNOT]</th>
+</tr>
+<tr>
+<td>ALL</td>
+<td>replaces ALL occurrences of <code>lineid</code> (default)</td>
+</tr>
+<tr>
+<td>FIRST</td>
+<td>only replaces 1st occurrence of <code>lineid</code></td>
+</tr>
+<tr>
+<td>LAST</td>
+<td>only replaces last occurrence of <code>lineid</code></td>
+</tr>
+<tr>
+<td>ADDTOP </td>
+<td>if <code>lineid</code> not found, adds a new line at the top of the Target File. </td>
+</tr>
+<tr>
+<td>ADDBOTTOM</td>
+<td>if <code>lineid</code> not found, adds a new line at the bottom of the Target File.</td>
+</tr>
+<tr>
+<td>DONTADD</td>
+<td>if no <code>lineid</code>, don't add replacement (default)</td>
+</tr>
+<tr>
+<td>*ID</td>
+<td>target line identification anywhere in the line.</td>
+</tr>
+<tr>
+<td>ENV ["x"]</td>
+<td><code>replacement</code> in this line contains environment variables. Optional <code>x</code>,
+default "%", defines delimit character</td>
+</tr>
+<tr>
+<td>KEY ["x"]</td>
+<td><code>replacement</code> in this line contains keywords from commmand line option
+<code>KEY</code>. Optional <code>x</code>, default "#", defines delimit character</td>
+</tr>
+<tr>
+<td>IF "x"</td>
+<td>Replace only if a line identified by <code>x</code> exists in the Target File. </td>
+</tr>
+<tr>
+<td>IFNOT "x"</td>
+<td>Replace only if a line identified by <code>x</code> doesn't exist in Target File.</td>
+</tr>
+
+
+<tr>
+<td class="verb" id="repstring">REPSTRING </td>
+<td class="cmd">Replace a given string by another, within a given line of Target File. If no line is specified (lineid) then all
+occurrences of string within Target File will be replaced with the new string. All occurrences of the string in a given line are
+replaced. </td>
+</tr>
+ <tr>
+ <th>Parameter</th>
+ <th class="cmd">REPSTRING ostring WITH nstring [IN lineid] [(Options]<br/> RS    ostring WITH nstring [IN lineid] [(Options]</th>
+ </tr>
+<tr>
+<td>ostring </td>
+<td>representing the string to be replaced. </td>
+</tr>
+<tr>
+<td>nstring </td>
+<td>representing the new string </td>
+</tr>
+<tr>
+<td>lineid </td>
+<td>identifies the target line. Optional.</td> </tr>
+</tr>
+<tr>
+<th>Options</th>
+<th class="cmd">[ALL|FIRST|LAST] [*ID] [ENV] [KEY]</th>
+</tr>
+<tr>
+<td>ALL </td>
+<td>replaces in all occurrences of <code>lineid</code> (default)</td>
+</tr>
+<tr>
+<td>FIRST </td>
+<td>replaces only in 1st occurrence of <code>lineid</code> </td>
+</tr>
+<tr>
+<td>LAST </td>
+<td>replaces only in last occurrence of <code>lineid</code> </td>
+</tr>
+<tr>
+<td>*ID </td>
+<td>target line identification anywhere in the line. </td>
+</tr>
+<tr>
+<td>ENV ["x"]</td>
+<td><code>nstring</code> in this line contains environment variables. Optional <code>x</code>,
+default "%", defines delimit character</td>
+</tr>
+<tr>
+<td>KEY ["x"]</td>
+<td><code>nstring</code> in this line contains keywords from commmand line option <code>KEY</code>.
+Optional <code>x</code>, default "#", defines delimit character</td>
+</tr>
+
+
+ </tbody>
+</table>
+
+
+<h2>Examples:</h2>
+
+<pre>ONERROR CONTINUE</pre>
+<p>continue processing even in case of error(s)</p>
+
+<pre>REPline "COUNTRY=" with "COUNTRY=001,C:\OS2\SYSTEM\COUNTRY.SYS" (ADDBOTTOM</pre>
+<p>replaces all occurrences of lines starting with "COUNTRY=" adds
+new line at bottom of Target File if no line starting with "COUNTRY="
+exists. "C:\" will be replaced with actual boot root directory.</p>
+
+<pre>ADDLINE "CODEPAGE=437,850" (AFTER "COUNTRY=" IFNEW</pre>
+<p>adds a line "CODEPAGE=437,850" after the line starting with
+"COUNTRY=" , only if "CODEPAGE=437,850" doesn't already exist in
+Target File. If it is to be added and no line starting with
+"COUNTRY=" exist, then add at bottom of file (implied by AFTER).</p>
+
+<pre>DELLINE "SET=" (first</pre>
+<p>deletes the first line starting with "SET=" .</p>
+
+<pre>DELLINE "SET=" (first ifnot "REQUIRESET"</pre>
+<p>deletes the first line starting with "SET=" only if Target File does
+not contain a line starting "REQUIRESET"</p>
+
+<pre>commentline "ifs=c:\os2\hpfs.ifs" with "rem "</pre>
+<p>comments the line starting with "IFS=C:\OS2\HPFS.IFS" with "REM ".
+Line will then be: REM IFS=C:\OS2\HPFS.IFS . "C:\" will be replaced
+with actual boot root directory.</p>
+
+<pre>ADDSTRING "C:\MYDLL;" IN "LIBPATH=" (FIRST IFNEW BEFORE "C:\OS2\DLL;"</pre>
+<p>adds "C:\MYDLL;", if it doesn't already exist, within the line
+starting with "LIBPATH=". Adds the string before "C:\OS2\DLL;" if it
+exists; otherwise adds the string after "LIBPATH=". "C:\" will be
+replaced with actual boot root directory.</p>
+
+<pre>addstring "c:\mybin;" in "path=" (after</pre>
+<p>adds "c:\mybin;", if it doesn't already exist, within the line
+starting with "path=". Note that the file seperator character is optional at the end of line
+and sometimes missing. Both ADDSTRING and DELETESTRING deal intelligently with this. </p>
+
+<pre>deletestring "warpcenter," in "set autostart=" (noterm</pre>
+<p>adds "c:\mybin;", if it doesn't already exist, within the line
+starting with "path=". Note that the string seperator character is not at the end of line.
+Both ADDSTRING and DELETESTRING deal intelligently with this.
+Remove "," from end of line if there is one.</p>
+
+<pre>AS "MYNAME" IN "USERID" (AFTER *ID</pre>
+<p>adds "MYNAME", if it doesn't already exist, within any line
+containing "USERID". Adds the string after "USERID".</p>
+
+<pre>ONERROR CONTINUE
+RL "SET VALUES=" WITH "SET VALUES=%indirect%" (ADDBOTTOM ENV</pre>
+<p>assuming that the command 'SET INDIRECT=3' has been executed prior
+to CUBE execution, if line "SET VALUES=" exits then replace line with
+"SET VALUES=3" else adds line to target bottom.
+If no environment variable found then displays an error message and continues with next command.</p>
+
+<pre>REPSTRING "D:\TOOLKT13\IPFC;" WITH "D:\TK13\IPFC" IN "SET HELP="
+(LAST</pre>
+<p>replaces the string "D:\TOOLKT13\IPFC; with "D:\TK13\IPFC;" within
+the last line starting with "SET HELP=".</p>
+
+<pre>REPSTRING "D:\TOOLKT13" WITH "D:\TK13" (all</pre>
+<p>replaces all occurrences of "D:\TOOLKT13" with "D:\TK13".</p>
+
+<pre>AL "USER=#name#,NODE=#node#" (AFTER IFNEW key</pre>
+<p>assuming CUBE has been invoked with option (KEY "name #ME#
+node #HERE#", will adds a line "USER=ME,NODE=HERE" .</p>
+
+<pre>WHEN C</pre>
+<p>assuming CUBE has been invoked with option (MAKE C , the following
+commands will be executed.</p>
+
+<pre>al !SET MYNAME="#name#"! (key</pre>
+<p>assuming CUBE has been  invoked with option (key "name #John Smith#",
+will add a line <code>SET MYNAME="John Smith"</code>.</p>
+
+
+<pre>lineid profile
+COMMENT BEGIN ";"
+REPLINE " COMPUTERNAME =" WITH " COMPUTERNAME = %hostname% (env"</pre>
+<p>a COMPUTERNAME but must have at least one leading space in target.
+The with string is still the exact replacement. Any lines beginning
+with a semi-colon are ignored. This example for C:\ibmlan\ibmlan.ini as target.</p>
+
+<h3>For more examples</h3>
+<ul>
+<li>Run <code>test.cmd</code> from <code>cube\text</code> directory which generates a pseudo target file to test most options.</li>
+<li><code>cube\text\*.cub.sam</code>  has various samples.</li>
+<li><a href="system.html">System Sample</a> is that it tests USB hardware and inserts correct number of drivers in <code>config.sys</code>.</li>
+</ul>
+
+
+</body>
+</html>
+

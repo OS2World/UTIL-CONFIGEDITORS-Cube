@@ -1,0 +1,7 @@
+(V3.30) CUBE - FREEWARE
+A REXX procedure to automatically configure
+update config.sys, command files, and text
+profiles.  Handles multiple boot drives and
+can be used for unattended configuration over
+a LAN.  Other procedures have been added to
+handle INI, CLASS and WPS.

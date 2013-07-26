@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<link type="text/css" href="cube.css" rel="stylesheet">
+<title>Network Sample</title>
+</head>
+<body>
+<h1>Network Sample</h1>
+
+<p>Modify this script for your own network.  By network I mean LAN, TCP/IP, MPTN etc.
+My network has a DSL/router with NETBIOS LAN. It assumes that system has already
+modified "config.sys" and gave all machines a unique hostname.</p>
+
+<table>
+ <caption>My Network</caption>
+ <col width="100"><col width="100"><col>
+ <tbody>
+<tr><td>karen</td><td>SWC 2</td><td>static peer to peer</td></tr>
+<tr><td>tina</td><td>eCS 1.1</td><td>dynamic client</td></tr>
+<tr><td>judy</td><td>Win98 se</td><td>static peer to peer</td></tr>
+ </tbody>
+</table>
+
+
+<p>Run "logsys.cmd" and Reboot before using this (see <a href="system.html">system sample</a>).
+Using WARP Center drives object select "lognet.cmd", a driver script for
+"network.cmd". This sets the path and logs output to "C:\network.log".
+Reboot and start surfing.</p>
+
+
+
+<h2>VBCOPY network C:\</h2>
+
+<p>These files are part of my LAN that are unlikely to change. If they do change
+VBCOPY does VBACK on the original. Its a lot easier VBCOPY them rather
+than CUBE every line for each file.</p>
+
+<pre>Directory of D:\cube\copy\network\mptn\etc
+10-25-03  9:44p           232      0 a---  TCPOS2.INI</pre>
+
+
+<h2>CUBE</h2>
+
+<p>I call CUBE while working directory "text" for files that are likely to change.
+I assume that changes to "C:\config.sys" are already handled by SYSTEM.</p>
+
+<p>A samples of my cube files are "text\*.cub.sam" with extra extension ".sam".
+There are some scripts, "text\*.cmd", to run cube on local copy of files and edit
+them. Put a local copy of target in subdirectory "text\sam".  You might have to modify
+the script to your own liking.</p>
+
+
+</body>
+</html>

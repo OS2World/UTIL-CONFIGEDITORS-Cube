@@ -1,0 +1,14 @@
+/* master update network cube */
+'@echo off'
+
+parse value value('PATH',,'OS2ENVIRONMENT') with preBoot ":\OS2;" postBoot
+bootPath = right(preBoot,1)':\'
+log = bootpath'network.log'
+curdir  = directory()
+path = curdir'\bin'
+if pos(path,value('PATH',,'OS2ENVIRONMENT'))=0 then 
+    'set path='path';%path%'
+
+call vback log
+address cmd 'start "network" /c/b network >' log
+exit 0

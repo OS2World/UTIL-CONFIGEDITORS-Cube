@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+ <link type="text/css" href="cube.css" rel="stylesheet">
+ <style>
+ </style>
+ <title>PUTINI 1.3</title>
+</head>
+<body>
+<a href="index.html">Family members</a>
+<h1>PUTINI V1.3 </h1>
+<br>
+
+<h2>DISCLAIMER</h2>
+
+<p>I or any other contributors allow you to use and modify freely under
+the condition that I or other contributors are in no way responsible
+for any damage or loss you may suffer.</p>
+
+<h2>WHAT'S NEW</h2>
+
+
+<h2>HISTORY</h2>
+
+<table>
+ <caption>History</caption>
+ <col width="100"><col width="100"><col>
+ <tbody>
+<tr><td>15/09/03</td><td>V1.3</td><td>map datapath                      (gjarvis@ieee.org)</td></tr>
+<tr><td>17/06/03</td><td>V1.2</td><td>key in quotes</td></tr>
+<tr><td>17/02/03</td><td>V1.1</td><td>fix bootpath</td></tr>
+<tr><td>17/06/02</td><td>V1.0</td><td>initial version</td></tr>
+ </tbody>
+</table>
+
+<h2>DOCUMENTATION</h2>
+
+<p>PUTINI is a REXX program to update USER and SYSTEM applications
+preselected from <a href="getini.html">GETINI</a>.
+Most apps of SYSTEM and some apps of USER are part quite Operating System
+dependent. WPS objects are handle separately by GETWPS.</p>
+
+<p>The following statistics are displayed:</p>
+
+<dl>
+<dt>read</dt> <dd>number of keys read </dd>
+<dt>new</dt> <dd>number of new keys </dd>
+<dt>updated</dt> <dd>number of updated keys </dd>
+</dl>
+
+<h2>Command Line Syntax</h2>
+
+<table>
+ <caption>Command Line Syntax</caption>
+ <col width="200"><col>
+ <tbody>
+
+<tr><td class="cmd" colspan="2">
+PUTINI [file] [(write]
+</td></tr>
+ <tr>
+ <th>Parameter</th>
+ <th>Description</th>
+ </tr>
+<tr>
+<td>file</td>
+<td>data file to use (default getini.din)</td>
+</tr>
+ <tr>
+ <th>Options</th>
+ <th>Description</th>
+ </tr>
+<tr>
+<td>write</td>
+<td>write to 'os2.ini/os2sys.ini' (default no write}</td>
+</tr>
+ </tbody>
+</table>
+
+
+<p>I was paranoid when developing PUTINI and GETINI that I have a switch for actual
+writing and ability to use another data file. The default might be write when
+programs become more robust.</p>
+
+
+<h2>getini.din</h2>
+
+<p>An ASCII file, 'getini.din', is read from running <a href="getini.html#din">GETINI</a>.</p>
+
+<p>If a formatted value does no contain any happy face then the value has 'C:\' replaced
+by current bootpath.</p>
+
+
+<h2>Examples:</h2>
+
+</body>
+</html>

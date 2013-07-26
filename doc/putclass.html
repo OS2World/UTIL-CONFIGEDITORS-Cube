@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+ <link type="text/css" href="cube.css" rel="stylesheet">
+ <style>
+ </style>
+ <title>PUTCLASS 1.1</title>
+</head>
+<body>
+<a href="index.html">Family members</a>
+<h1>PUTCLASS V1.1 </h1>
+<br>
+
+<h2>DISCLAIMER</h2>
+
+<p>I or any other contributors allow you to use and modify freely under
+the condition that I or other contributors are in no way responsible
+for any damage or loss you may suffer.</p>
+
+<h2>WHAT'S NEW</h2>
+
+<h2>HISTORY</h2>
+
+<table>
+ <caption>History</caption>
+ <col width="100"><col width="100"><col>
+ <tbody>
+<tr><td>15/09/03</td><td>V1.1</td><td>map datapath                      (gjarvis@ieee.org)</td></tr>
+<tr><td>17/06/03</td><td>V1.0</td><td>Initial version (gjarvis@ieee.org)</td></tr>
+ </tbody>
+</table>
+
+
+<h2>DOCUMENTATION</h2>
+
+
+<p>PUTCLASS is a REXX program to generate selected object classes.
+A list of desktop and startup objects is automatically generated
+in file 'putclass.lst' and controls selection.</p>
+
+
+<p>The following statistics are displayed:</p>
+
+<dl>
+<dt>read</dt> <dd>number of classes read in 'putclass.lst'</dd>
+<dt>new</dt> <dd>number of classes in your system but not in 'putclass.lst' and will be
+automatically added</dd>
+<dt>created</dt> <dd>number of created objects in 'putclass.din'</dd>
+</dl>
+
+<h2>Command Line Syntax</h2>
+
+<table>
+ <caption>Command Line Syntax</caption>
+ <col width="200"><col>
+ <tbody>
+
+<tr><td class="cmd" colspan="2">
+putclass [(Options]
+</td></tr>
+
+ <tr>
+ <th>Options</th>
+ <th>[ALL] </th>
+ </tr>
+<tr>
+<td>ALL</td>
+<td>all classes are created in file 'putclass.all' with same format as 'putclass.din'</td>
+</tr>
+ </tbody>
+</table>
+
+
+<h2>putclass.lst</h2>
+
+<p>An ASCII file, 'putclass.lst' lists all classes.
+Each line tells whether object is selected or excluded.</p>
+
+<table>
+ <caption>putclass.lst</caption>
+ <col width="100"><col>
+ <tbody>
+
+<tr>
+<td class="verb" id="cmt">*</td>
+<td class="cmd">blank lines and lines starting with an asterik are ignored</td>
+</tr>
+<tr>
+<td class="verb" id="exc">EXC</td>
+<td class="cmd">exclude object and all its descendents</td>
+</tr>
+ <tr>
+ <th>Parameter</th>
+ <th class="cmd">EXC class</th>
+ </tr>
+<tr>
+<td>class</td>
+<td>class</td>
+</tr>
+
+<tr>
+<td class="verb" id="inc">INC</td>
+<td class="cmd">include object and all its descendents</td>
+</tr>
+ <tr>
+ <th>Parameter</th>
+ <th class="cmd">INC class</th>
+ </tr>
+<tr>
+<td>class</td>
+<td>class</td>
+</tr>
+
+</tbody>
+</table>
+
+<p>If there is neither 'INC' nor 'EXC' for a object then an 'EXC' line is
+appended to bottom of file.  Just run the program and it will generate the
+'EXC'.  Edit the file by changing 'EXC' to 'INC' for objects you want. Then run
+the program again.</p>
+
+<h2>putclass.din</h2>
+
+<p>An ASCII file, 'putclass.din', is generated with following format.
+
+<table id="#din">
+ <caption>putclass.din</caption>
+ <col width="160"><col>
+ <tbody>
+ <tr>
+ <th>first line</th>
+ <th class="cmd">information on who, what and when generated data</th>
+ </tr>
+ <tr>
+ <th>rest of lines</th>
+ <th class="cmd">class setup</th>
+ </tr>
+<tr>
+<td>class</td>
+<td>class</td>
+</tr>
+<tr>
+<td>setup</td>
+<td>setup string</td>
+</tr>
+
+</tbody>
+</table>
+
+<p>All locations and setups have bootpath replaced by 'C:\'.</p>
+
+<h2>Examples:</h2>
+
+<ul>
+<li>include all third party objects that you want</li>
+<li>exclude all objects from vanilla install</li>
+<li>avoid shadows of command prompts as SWC and eCS has different title names</li>
+</ul>
+
+</body>
+</html>

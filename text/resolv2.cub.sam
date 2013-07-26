@@ -1,0 +1,8 @@
+-- c:\mptn\etc\resolv2
+rl "domain" with "domain jarvis" (addtop
+dl "nameserver 206.47.244."
+
+when karen
+al "nameserver 209.226.175.223"
+al "nameserver 198.235.216.134"
+

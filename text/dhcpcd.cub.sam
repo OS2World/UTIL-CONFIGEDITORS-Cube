@@ -1,0 +1,5 @@
+-- c:\mptn\etc\dhcpcd.cfg
+comment trail "#"
+al "option 12" (after "option 6"
+rl "option 12" with 'option 12 "%hostname%"' (env
+al "previouscfg" (before "interface"

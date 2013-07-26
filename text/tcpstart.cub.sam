@@ -1,0 +1,5 @@
+-- c:\tcpip\bin\tcpstart.cmd
+
+ADDLINE "detach portmap" (BEFORE "echo ..... FINISHED STARTING THE TCP/IP PROCESSES"
+ADDLINE "detach nfsd" (BEFORE "echo ..... FINISHED STARTING THE TCP/IP PROCESSES"
+ADDLINE "detach lprportd" (BEFORE "echo ..... FINISHED STARTING THE TCP/IP PROCESSES"

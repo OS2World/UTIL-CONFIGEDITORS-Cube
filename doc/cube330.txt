@@ -1,0 +1,28 @@
+                          Upload Information Template for Hobbes.nmsu.edu
+                          ===============================================
+
+        Archive Filename: cube330.zip
+       Short Description: CUBE V3.3 and tools to configure multiple boot dives
+        Long Description: update config.sys, batch files and text profiles, selected INI, CLASS &
+WPS, with multiple boot drive support to configure a fresh install unattended.  REXX source.
+
+      Proposed directory
+           for placement:  /pub/os2/util/config
+
+               Your name:  Greg Jarvis
+           Email address: gjarvis@ieee.org
+    Program contact name: (same)
+   Program contact email: (same)
+             Program URL: http://www3.sympatico.ca/gjarviseng/cube
+
+      Would you like the
+   contact email address
+    included in listings? yes
+
+Operating System/Version: WARP, SWC,  eCS
+ Additional requirements: WPTOOLS.DLL
+
+                Replaces: cube321.zip
+
+
+

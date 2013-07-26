@@ -1,0 +1,11 @@
+-- c:\ibmlan\ibmlan.ini
+lineid profile
+COMMENT BEGIN ";"
+
+REPLINE " DOMAIN =" WITH "  DOMAIN = JARVIS"
+
+REPLINE " COMPUTERNAME =" WITH "  COMPUTERNAME = %hostname%" (env
+
+when karen
+REPLINE " SRVCOMMENT =" WITH "  SRVCOMMENT = eCS/SWC WARP on %hostname%" (env
+rl "  srvhidden =" with "  srvhidden = no"

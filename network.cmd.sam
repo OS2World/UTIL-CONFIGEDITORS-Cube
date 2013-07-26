@@ -1,0 +1,27 @@
+/* master update network cube */
+'@echo off'
+
+parse value value('PATH',,'OS2ENVIRONMENT') with ":\OS2;" -1 bootPath +3
+curdir  = directory()
+make = value('hostname',,'OS2ENVIRONMENT')
+
+say "master update of network on" bootPath "on" date() time()
+
+directory(curdir'\copy')
+call vbcopy 'network' bootpath
+
+directory(curdir'\text')
+call cube 'rfcbcst.cub' bootpath'ibmcom\rfcbcst.lst' '(vback make !'make'! '
+call cube 'rfcnames.cub' bootpath'ibmcom\rfcnames.lst' '(vback make !'make'! '
+call cube 'setup.cub' bootpath'mptn\bin\setup.cmd' '(vback make !'make'! '
+call cube 'hosts.cub' bootpath'mptn\etc\hosts' '(vback make !'make'! '
+call cube 'resolv2.cub' bootpath'mptn\etc\resolv2' '(vback make !'make'! '
+call cube 'dhcpcd.cub' bootpath'mptn\etc\dhcpcd.cfg' '(vback make !'make'! '
+call cube 'ibmlan.cub' bootpath'ibmlan\ibmlan.ini' '(vback make !'make'! '
+call cube 'startup.cub' bootpath'startup.cmd' '(vback make !'make'! '
+call cube 'tcpstart.cub' bootpath'tcpip\bin\tcpstart.cmd' '(vback make !'make'! '
+
+say 'finished'
+call directory curdir
+exit 0
+

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<link type="text/css" href="cube.css" rel="stylesheet">
+<title>System Sample</title>
+</head>
+<body>
+<h1>System Sample</h1>
+
+<p>It is doubtful that you may needed to modify this script for your own system.
+Note that all 'C:\' are replaced by the actual boot path at run time.</p>
+
+<p>Using WARP Center drives object select "logsys.cmd", a driver script for
+"system.cmd". This driver sets the path and logs output of "system.cmd"
+to "C:\system.log".
+Reboot.</p>
+
+<p>This should work vanilla install. By vanilla install I mean install every
+thing with default selection except specify default local printer, setup
+video and sound, and install TCP/IP with defaults.</p>
+
+<p>When things are working then read <a href="network.html">network sample</a>.</p>
+
+
+
+<h2>VBCOPY system C:\</h2>
+
+<p>Most drivers and other files can be put into shared volume. VBCOPY updates it self with the
+latest files. Note that this includes both basic and mass storage USB drivers.</p>
+
+<pre>Directory of D:\cube\copy\system\os2
+ 9-19-02  7:01p         5,845      0 a---  hcimonit.exe
+Directory of D:\cube\copy\system\os2\boot
+ 8-09-03  8:07a        61,912      0 a---  DaniS506.ADD
+ 9-30-03  1:57p         5,278      0 a---  usbcdrom.add
+ 9-30-03  1:55p        22,706      0 a---  usbd.sys
+ 9-30-03  1:56p        41,292      0 a---  usbehcd.sys
+ 9-30-03  1:56p        13,310      0 a---  usbhid.sys
+ 1-21-03  1:31p        10,683      0 a---  usbinst.exe
+ 9-30-03  1:57p        34,662      0 a---  usbmsd.add
+ 9-30-03  1:56p        33,558      0 a---  usbohcd.sys
+ 9-30-03  1:55p        26,920      0 a---  usbuhcd.sys
+ 1-10-03  1:07p         1,985      0 a---  VFDisk.sys</pre>
+
+
+<h2>CUBE</h2>
+
+<p>I call CUBE while working in the "text" directory for the file "C:\config.sys". Note I first call
+<code>hcimonit</code> for the correct number and type of USB stack.</p>
+
+<p>A sample of my cube file is "text\config.cub.sam" with extra extension ".sam".
+There is a script, "text\config.cmd", to run cube on local copy of
+"config.sys" and edit them where you put a local copy in subdirectory
+"text\sam".  You might have to modify the script to your own liking.</p>
+
+<h2>PUTINI</h2>
+
+<p>Create or update selected INI profiles in "ini\getini.din" created by GETINI
+while working in the "ini" directory.</p>
+
+
+<h2>PUTCLASS</h2>
+
+<p>Create or update selected register object CLASSes in "class\getclass.din" created by GETCLASS
+while working in the "class" directory.</p>
+
+
+<h2>PUTWPS</h2>
+
+
+<p>Create or update selected WPS objects in "wps\getwps.din" created by GETWPS
+while working in the "wps" directory.</p>
+
+
+</body>
+</html>
+

@@ -1,0 +1,5 @@
+-- c:\mptn\etc\hosts
+rl "127.0.0.1" with "127.0.0.1             localhost                 "  (addtop
+rl "192.168.1.20" with "192.168.1.20          judy.jarvis               judy        # cheap win98 box" (addbottom
+rl "192.168.1.10" with "192.168.1.10          karen.jarvis              karen       # warp" (addbottom
+

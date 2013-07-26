@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+ <link type="text/css" href="cube.css" rel="stylesheet">
+ <style>
+ </style>
+ <title>GETINI 1.2</title>
+</head>
+<body>
+<a href="index.html">Family members</a>
+<h1>GETINI V1.2 </h1>
+<br>
+
+<h2>DISCLAIMER</h2>
+
+<p>I or any other contributors allow you to use and modify freely under
+the condition that I or other contributors are in no way responsible
+for any damage or loss you may suffer.</p>
+
+<h2>WHAT'S NEW</h2>
+
+<h2>HISTORY</h2>
+
+<table>
+ <caption>History</caption>
+ <col width="100"><col width="100"><col>
+ <tbody>
+<tr><td>06/10/03</td><td>V1.2</td><td>map datapath                      (gjarvis@ieee.org)<br/>
+key maybe option in list          (gjarvis@ieee.org)</td></tr>
+<tr><td>05/06/03</td><td>V1.1</td><td>drive mapping bug<br/>
+key now in quotes (may have spaces)<br/>
+wild card matching of apps<br/>
+ALL option           (gjarvis@ieee.org)</td></tr>
+<tr><td>17/06/02</td><td>V1.0</td><td>Initial version (gjarvis@ieee.org)</td></tr>
+ </tbody>
+</table>
+
+
+<h2>DOCUMENTATION</h2>
+
+<p>GETINI is a REXX program to generate selected USER and SYSTEM applications.
+Most apps of SYSTEM and some apps of USER are part quite Operating System
+dependent. WPS objects are handle seperately by GETWPS.</p>
+
+<p>Use repeatedly in a command window and edit 'getini.lst' until desired result
+achieved. Usually only a few iterations are needed.</p>
+
+<pre>&gt;getini
+&gt;epm getini.*</pre>
+
+
+<p>The following statistics are displayed:</p>
+
+<dl>
+<dt>read</dt> <dd>number of lines read 'getini.lst'</dd>
+<dt>new</dt> <dd>number of apps in your system but not in 'getini.lst' and will be automatically
+added</dd>
+<dt>keys</dt> <dd>number of keys generated in 'getini.din'</dd>
+</dl>
+
+<h2>Command Line Syntax</h2>
+
+<table>
+ <caption>Command Line Syntax</caption>
+ <col width="200"><col>
+ <tbody>
+
+<tr><td class="cmd" colspan="2">
+GETINI [(Options]
+</td></tr>
+<tr>
+<th>Options</th>
+<th class="cmd">[ALL]</th>
+</tr>
+<tr>
+<td>ALL</td>
+<td>'getini.lst' is ignored and all keys for all applications saved to 'getini.all'.
+</td>
+</tr>
+
+
+</tbody>
+</table>
+
+
+<h2>getini.lst</h2>
+
+<p>An ASCII file, 'getini.lst', is used to select which apps get selected with following
+format.</p>
+
+<table>
+ <caption>getini.lst</caption>
+ <col width="100"><col>
+ <tbody>
+
+<tr>
+<td class="verb" id="cmt">*</td>
+<td class="cmd">blank lines and lines starting with an asterik are ignored</td>
+</tr>
+<tr>
+<td class="verb" id="exc">EXC</td>
+<td class="cmd">exclude an application</td>
+</tr>
+ <tr>
+ <th>Parameter</th>
+ <th class="cmd">EXC ini "app" ["key"]</th>
+ </tr>
+<tr>
+<td>ini</td>
+<td>USER or SYSTEM</td>
+</tr>
+<tr>
+<td>app</td>
+<td>application to exclude. May end with wildcard <code>*</code>.</td>
+</tr>
+<tr>
+<td>key</td>
+<td>optional key to exclude. If no key is specified then exclude all keys for application.</td>
+</tr>
+
+<tr>
+<td class="verb" id="inc">INC</td>
+<td class="cmd">include an application</td>
+</tr>
+ <tr>
+ <th>Parameter</th>
+ <th class="cmd">INC ini "app" ["key"]</th>
+ </tr>
+<tr>
+<td>ini</td>
+<td>USER or SYSTEM</td>
+</tr>
+<tr>
+<td>app</td>
+<td>application to include. May end with wildcard <code>*</code>.</td>
+</tr>
+<tr>
+<td>key</td>
+<td>optional key to include. If no key is specified then include all keys for application.</td>
+</tr>
+
+</tbody>
+</table>
+
+<p>If there is neither 'INC' nor 'EXC' for an application then an 'EXC' line is
+appended to bottom of file.  Just run the program and it will generate the
+'EXC'.  Edit the file by changing 'EXC' to 'INC' for the applictaions you want. Then run
+the program again.</p>
+
+<h2>getini.din</h2>
+
+<p>An ASCII file, 'getini.din', is generated with following format.</p>
+
+<table id="din">
+ <caption>getini.din</caption>
+ <col width="160"><col>
+ <tbody>
+ <tr>
+ <th>first line</th>
+ <th class="cmd">information on who, what and when generated data</th>
+ </tr>
+ <tr>
+ <th>rest of lines</th>
+ <th class="cmd">ini "app"  "key"  valfmt  valhex</th>
+ </tr>
+<tr>
+<td>ini</td>
+<td>USER or SYSTEM</td>
+</tr>
+<tr>
+<td>app</td>
+<td>application</td>
+</tr>
+<tr>
+<td>key</td>
+<td>key</td>
+</tr>
+<tr>
+<td>valfmt</td>
+<td>formated value (human readable)</td>
+</tr>
+<tr>
+<td>valhex</td>
+<td>unformated hexadecimal value (computer readable)</td>
+</tr>
+</tbody>
+</table>
+
+<p>If a value contains a bootpath then it is replaced by 'C:\'.</p>
+<p>If a value contains a datapath then it is replaced by 'D:\'.</p>
+
+
+<h2>Format Value</h2>
+
+<p>A string delimit by graphic marks where each byte is displayed as:</p>
+
+<table>
+ <caption>Byte Format</caption>
+<col width="200"><col>
+ <tbody>
+<tr>
+<td>ASCII</td>
+<td>printable ASCII</td>
+</tr>
+<tr>
+<td>circle with verticle line</td>
+<td>null char</td>
+</tr>
+<tr>
+<td>happy face</td>
+<td>other</td>
+</tr>
+
+</tbody>
+</table>
+
+<h2>Examples:</h2>
+
+<pre>exc USER "WIN_RES_*"</pre>
+
+<p>exclude video driver dependent apps. Note that the use of wildcards not only makes your 
+list file easier to read, but also faster to process.</p>
+
+<pre>INC USER "PM_Lockup"
+exc USER "PM_*"</pre>
+
+<p>include PM_Lockup but exclude other apps that starts with PM_</p>
+
+<pre>exc USER "XWorkplace" "ArchiveSettings"
+exc USER "XWorkplace" "ArchiveLastBackup"
+exc USER "XWorkplace" "LastDesktopPath"
+inc USER "XWorkplace"</pre>
+
+<p>include app XWorkplace but exclude the specified three keys</p>
+
+</body>
+</html>

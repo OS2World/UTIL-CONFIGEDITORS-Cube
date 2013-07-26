@@ -1,0 +1,27 @@
+*Xworkplace
+inc X*
+
+*DeScribe word processer
+inc Dwp*
+
+*Amouse driver
+exc AMouse
+
+*Acrobat
+inc AApdf
+
+*OS/2
+EXC Ezplay
+EXC Ftp
+EXC Mindex
+EXC ODwps
+EXC SCShadow
+EXC SmartCenter
+EXC Telnet
+exc Adv*
+exc LS*
+exc MM*
+exc PR*
+exc WP*
+
+*unsorted other

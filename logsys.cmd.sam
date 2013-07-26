@@ -1,0 +1,14 @@
+/* master update system cube */
+'@echo off'
+
+parse value value('PATH',,'OS2ENVIRONMENT') with preBoot ":\OS2;" postBoot
+bootPath = right(preBoot,1)':\'
+log = bootpath'system.log'
+curdir  = directory()
+path = curdir'\bin'
+if pos(path,value('PATH',,'OS2ENVIRONMENT'))=0 then 
+    'set path='path';%path%'
+
+call vback log
+address cmd 'start "system" /c/b system >' log
+exit 0

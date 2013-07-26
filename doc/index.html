@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+   <meta name="keywords" content="CUBE OS/2 WARP SWC eCS config family">
+   <meta name="description" content="REXX scripits to configure config.sys, INI, WPS, TCP/IP in a boot drive independent manner">
+   <meta name="author" content="Greg Jarvis">
+
+<link type="text/css" href="cube.css" rel="stylesheet">
+<style>
+</style>
+<title>OS/2 CUBE Family</title>
+</head>
+<body>
+<h1>OS/2 CUBE Family</h1>
+<br/>
+This page has been visited
+<img src="http://www3.sympatico.ca/cgi-bin/Count.cgi?dd=B|df=gjarviseng_cube.dat">
+times.
+
+<p>A general
+<a href="mailto://os2-cube@yahoogroups.com">newsgroup</a> has been  created.</p>
+
+<p>A collection of REXX scripts to configure SWC and eCS config.sys,
+batches, text profiles, selected WPS objects and INI applications. These will
+configure your system without any attention. They are good for the  individual but here
+indispensable for configuring a network of clients. They are meant for people who have
+some familiarity with OS/2 configuration.</p>
+
+<p>There are now two different drive mappings.
+First, <code>C:\</code> is mapped to actual boot drive.
+Second, <code>D:\</code> is mapped to the drive  running cube, hereon referred to data drive.
+</p>
+
+<p >I modified CUBE to handle multiple boot drives with one source. I liked it so much I wrote scripts to handle
+selected WPS objects and INI application in boot drive independent manner. Next, I was concerned about
+configuring my LAN which is a real pain. I got scripts for that too.</p>
+
+<p>I have added some new features  to CUBE.   At the risk of controversy I redefined some
+infrequent used features of CUBE that were limiting the robustness and
+expandability of the language. This resulted in a rewrite of the documentation. Now one can expand
+the language and remain 100% compatible existing procedure files. Some of the other tools have
+been also updated.<p>
+
+<p>CUBE now requires Object REXX rather than Classic REXX. Unfortunately, in a fresh install
+Classic REXX is the default. To switch between the two REXX, type <code>switchrx</code>
+at command prompt, enter "y" return and then reboot. For unattended installs, run switchrx
+with input redirected from a text file during last phase of the install. A practical work around is
+in the works.  I tried Object REXX both SWC and eCS to find eCS 1.0 needed Classic REXX to run
+WiseMachine but eCS 1.1, SWC 1 &amp; 2 work no problem.</p>
+
+<p>Kedler's <a href="http://hobbes.nmsu.edu/pub/os2/util/system/wptool32.zip">WPTOOLS.DLL</a> is
+required
+for GETWPS.</p>
+
+
+<table>
+<caption>Family Members</caption>
+<col  width="130"/><col  width="75"/><col/>
+<tr>
+<th>Program</th><th>Date</th><th>Description</th>
+</tr>
+
+<tr>
+<td><a href="cube.html">CUBE 3.3</a></td>
+<td>Oct 2003</td>
+<td>program to update config.sys, batches, and text profiles</td>
+</tr>
+
+<tr>
+<td><a href="getini.html">GETINI 1.2</a><br/><a href="putini.html">PUTINI 1.3</a></td>
+<td>Oct 2003<br/>Sept 2003</td>
+<td>get and put selected INI applications</td>
+</tr>
+
+<tr>
+<td><a href="getclass.html">GETCLASS 1.1</a><br/><a href="putclass.html">PUTCLASS 1.1</a></td>
+<td>Sept 2003<br/>Sept 2003</td><td>get and put selected object CLASSes</td>
+</tr>
+
+<tr>
+<td><a href="getwps.html">GETWPS 1.3</a><br/><a href="putwps.html">PUTWPS 1.3</a></td>
+<td>Sept 2003<br/>Sept 2003</td>
+<td>get and put selected WPS objects</td>
+</tr>
+
+<tr>
+<td><a href="vback.html">VBACK 1.0</a></td>
+<td>Jun 2002</td>
+<td>routine to promote consistent but intelligent back up of small files</td>
+</tr>
+
+<tr>
+<td><a href="vbcopy.html">VBCOPY 1.1</a></td>
+<td>July 2003</td>
+<td>like XCOPY /S but more intelligent</td>
+</tr>
+
+<tr>
+<td><a href="network.html">Network Sample</a></td>
+<td>Nov 2003</td>
+<td>sample master script to update network</td>
+</tr>
+
+<tr>
+<td><a href="system.html">System Sample</a></td>
+<td>Nov 2003</td>
+<td>sample master script to update system </td>
+</tr>
+
+</table>
+
+<p><a href="cube330.zip">Download</a> the complete family with build Dec 2003</p>
+
+</body>
+</html>
+
+

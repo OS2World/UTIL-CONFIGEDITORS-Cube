@@ -1,0 +1,3 @@
+-- c:\startup.cmd
+when karen
+REPLINE "NET START" WITH "NET START PEER"
